@@ -18,11 +18,11 @@ class Persons extends PureComponent {
     }
 
     componentWillMount() {
-    console.log('[Persons.js] Inside componentWillMount');
+        console.log('[Persons.js] Inside componentWillMount');
     }
 
     componentDidMount() {
-    console.log('[Persons.js] Inside componentDidMount');
+        console.log('[Persons.js] Inside componentDidMount');
     }
 
     componentWillReceiveProps(nextProps) {
@@ -58,17 +58,18 @@ class Persons extends PureComponent {
 
     render() {
         console.log('[Persons.js] Inside render');
-    return (
-        this.props.persons.map((person, index) => {
-            return <ErrorBoundary><Person 
-                                    name={person.name}
-                                    age={person.age}
-                                    click={() => this.props.clicked(index)}
-                                    changed={(event) => {this.props.changed(event, person.id)}}
-                                    key={person.id} />
-                    </ErrorBoundary>;
-        })
-    );
+        return (
+            this.props.persons.map((person, index) => {
+                return <ErrorBoundary key={person.id}>
+                        <Person 
+                            name={person.name}
+                            age={person.age}
+                            click={() => this.props.clicked(index)}
+                            changed={(event) => {this.props.changed(event, person.id)}}
+                        />
+                        </ErrorBoundary>;
+            })
+        );
     }
 }
 

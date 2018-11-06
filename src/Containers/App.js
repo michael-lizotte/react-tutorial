@@ -57,11 +57,11 @@ class App extends PureComponent {
   //     nextState.showPersons !== this.state.showPersons;
   // }
 
-componentWillUpdate(nextProps, nextState) {
+  componentWillUpdate(nextProps, nextState) {
     console.log('[UPDATE App.js] Inside componentWillUpdate', nextProps, nextState);
   }
 
-componentDidUpdate() {
+  componentDidUpdate() {
     console.log('[UPDATE App.js] Inside componentDidUpdate');
   }
 
@@ -134,6 +134,7 @@ componentDidUpdate() {
 
     return (
       <div className="App">
+        {/* Just a dummy button to show PureComponents */}
         <button onClick={() => {this.setState({showPersons: true})}}>Show Persons</button>
         <Cockpit 
           persons={this.state.persons}

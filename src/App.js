@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import './App.css';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 import Person from './Person/Person';
 
 class App extends Component {
@@ -15,14 +16,14 @@ class App extends Component {
 
   nameChangedHandler = (event, id) => {
     const personIndex = this.state.persons.findIndex(p => {
-      return p.id === id;
+      return p.userId === id;
     });
 
     const person = {
       ...this.state.persons[personIndex] // This syntax propagate properties of 'this.state.persons[...]' into the object
     };
 
-    person.name = event.input.value;
+    person.name = event.target.value;
 
     const persons = [...this.state.persons];
     persons[personIndex] = person;
@@ -63,12 +64,12 @@ class App extends Component {
       persons = (
         <div>
           {this.state.persons.map((person, index) => {
-            return <Person 
+            return <ErrorBoundary><Person 
               name={person.name}
               age={person.age}
               click={() => this.deletePersonHandler(index)}
               changed={(event) => {this.nameChangedHandler(event, person.id)}}
-              key={person.id} />;
+              key={person.id} /></ErrorBoundary>;
           })}
         </div>
       );

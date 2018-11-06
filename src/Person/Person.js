@@ -3,6 +3,11 @@ import React, { Component } from 'react';
 import './Person.css'
 
 const person = (props) => {
+    const rnd = Math.random();
+
+    if (rnd > 0.7) {
+        throw new Error("Error message");
+    }
 
     return (
         <div className="Person">

@@ -22,7 +22,7 @@ class App extends Component {
       ...this.state.persons[personIndex] // This syntax propagate properties of 'this.state.persons[...]' into the object
     };
 
-    person.name = event.target.value;
+    person.name = event.input.value;
 
     const persons = [...this.state.persons];
     persons[personIndex] = person;

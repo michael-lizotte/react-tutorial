@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 import Person from './Person/Person';
 
-class Persons extends Component {
+class Persons extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -23,6 +23,37 @@ class Persons extends Component {
 
     componentDidMount() {
     console.log('[Persons.js] Inside componentDidMount');
+    }
+
+    componentWillReceiveProps(nextProps) {
+        console.log('[UPDATE Persons.js] Inside componentWillReceiveProps', nextProps);
+    }
+
+    /**
+     * Using PureComponent instead of Component already does that check for us
+     * There is no need to implement shouldComponentUpdate anymore
+     * 
+     * Don't use it too much, only when update is not always necessary
+     * 
+     * It can impact performance drop since it compares every props
+     * and states of the component each time shouldUpdateComponent is
+     * called
+     */
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     console.log('[UPDATE Persons.js] Inside shouldComponentUpdate', nextProps, nextState);
+    //     /***It only checks the REFERENCE of the object, not the object itself!!!***/
+    //     return nextProps.persons !==  this.props.persons ||
+    //         nextProps.changed !== this.props.changed ||
+    //         nextProps.clicked !== this.props.clicked;
+    //     // return true;
+    // }
+
+    componentWillUpdate(nextProps, nextState) {
+        console.log('[UPDATE Persons.js] Inside componentWillUpdate', nextProps, nextState);
+    }
+
+    componentDidUpdate() {
+        console.log('[UPDATE Persons.js] Inside componentDidUpdate');
     }
 
     render() {

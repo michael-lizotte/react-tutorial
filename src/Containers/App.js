@@ -1,11 +1,29 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import './App.css';
 import ErrorBoundary from '../Components/ErrorBoundary/ErrorBoundary';
 import Persons from '../Components/Persons/Persons';
 import Cockpit from '../Components/Cockpit/Cockpit'
 
-class App extends Component {
+/*
+ * Lifecycle of React components
+ * 
+ * 1. constructor(props)
+ *      Should be used to initialize the state
+ *      Never cause side-effects (ex: fetching web content)
+ *      *Must call 'super(props)'
+ * 2. componentWillMount()
+ *      Useless
+ * 3. render()
+ *      It prepares and structures JSX code
+ *      *Doesn't manipulate the real DOM
+ * 4. render child components
+ * 5. componentDidMount()
+ *      Can cause sid-effects in it but never update the state
+ *      It will cause the component to re-render
+ */
+
+class App extends PureComponent {
 
   constructor(props) {
     super(props);
@@ -26,6 +44,25 @@ class App extends Component {
 
   componentDidMount() {
     console.log('[App.js] Inside componentDidMount');
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('[UPDATE Persons.js] Inside componentWillReceiveProps', nextProps);
+  }
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log('[UPDATE App.js] Inside shouldComponentUpdate', nextProps, nextState);
+  //   /***It only checks the REFERENCE of the object, not the object itself!!!***/
+  //   return nextState.persons !== this.state.persons ||
+  //     nextState.showPersons !== this.state.showPersons;
+  // }
+
+componentWillUpdate(nextProps, nextState) {
+    console.log('[UPDATE App.js] Inside componentWillUpdate', nextProps, nextState);
+  }
+
+componentDidUpdate() {
+    console.log('[UPDATE App.js] Inside componentDidUpdate');
   }
 
   // state = {
@@ -97,6 +134,7 @@ class App extends Component {
 
     return (
       <div className="App">
+        <button onClick={() => {this.setState({showPersons: true})}}>Show Persons</button>
         <Cockpit 
           persons={this.state.persons}
           style={style}

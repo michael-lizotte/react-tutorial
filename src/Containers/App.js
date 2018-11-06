@@ -6,14 +6,36 @@ import Persons from '../Components/Persons/Persons';
 import Cockpit from '../Components/Cockpit/Cockpit'
 
 class App extends Component {
-  state = {
-    persons: [
-      {id: 'daf1213', name: "John", age: 28},
-      {id: 'fdsaf34', name: "Manu", age: 29},
-      {id: 'fdsfsa5', name: "Stephanie", age: 26}
-    ],
-    showPersons: false
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      persons: [
+        {id: 'daf1213', name: "John", age: 28},
+        {id: 'fdsaf34', name: "Manu", age: 29},
+        {id: 'fdsfsa5', name: "Stephanie", age: 26}
+      ],
+      showPersons: false
+    }
+    console.log('[App.js] Inside constructor', props);
   }
+
+  componentWillMount() {
+    console.log('[App.js] Inside componentWillMount');
+  }
+
+  componentDidMount() {
+    console.log('[App.js] Inside componentDidMount');
+  }
+
+  // state = {
+  //   persons: [
+  //     {id: 'daf1213', name: "John", age: 28},
+  //     {id: 'fdsaf34', name: "Manu", age: 29},
+  //     {id: 'fdsfsa5', name: "Stephanie", age: 26}
+  //   ],
+  //   showPersons: false
+  // }
 
   nameChangedHandler = (event, id) => {
     const personIndex = this.state.persons.findIndex(p => {
@@ -49,6 +71,8 @@ class App extends Component {
   }
 
   render() {
+    console.log('[App.js] Inside render')
+
     // Inline styling using javascript and injecting it in the button's style
     const style = {
       backgroundColor: 'green',

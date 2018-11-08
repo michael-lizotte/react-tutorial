@@ -1,7 +1,5 @@
 import React from 'react';
 
-import Aux from '../../HigherOrderComponents/Aux'
-
 const cockpit = (props) => {
     let classes = []; // Will make a new string 'Red Bold'
 
@@ -23,8 +21,13 @@ const cockpit = (props) => {
             <button 
             style={props.style} // Injecting the style
             onClick={props.toggled}>Toggle Persons</button>
+            <button onClick={props.login}>Login</button>
         </>
     );
 };
 
-export default cockpit;
+/**
+ * React.memo() is a new method of React 16.6 that does the same
+ * as PureComponent but for function-components
+ */
+export default React.memo(cockpit);

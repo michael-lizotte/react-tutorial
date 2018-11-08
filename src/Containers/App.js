@@ -5,6 +5,8 @@ import ErrorBoundary from '../Components/ErrorBoundary/ErrorBoundary';
 import Persons from '../Components/Persons/Persons';
 import Cockpit from '../Components/Cockpit/Cockpit'
 
+export const AuthContext = React.createContext(false);
+
 /*
  * Lifecycle of React components
  * 
@@ -34,7 +36,8 @@ class App extends PureComponent {
         {id: 'fdsfsa5', name: "Stephanie", age: 26}
       ],
       showPersons: false,
-      toggleClicked: 0
+      toggleClicked: 0,
+      authenticated: false
     }
     console.log('[App.js] Inside constructor', props);
   }
@@ -60,6 +63,17 @@ class App extends PureComponent {
 
   componentWillUpdate(nextProps, nextState) {
     console.log('[UPDATE App.js] Inside componentWillUpdate', nextProps, nextState);
+  }
+
+  /**
+   * New function in React 16.3
+   */
+  static getDerivedStateFromProps(nextProps, prevState) {
+    console.log('[UPDATE App.js] Inside getDerivedStateFromProps', nextProps, prevState);
+  }
+
+  getSnapshotBeforeUpdate() {
+    console.log('[UPDATE App.js] Inside getSnapshotBeforeUpdate');
   }
 
   componentDidUpdate() {
@@ -119,6 +133,12 @@ class App extends PureComponent {
     });
   }
 
+  loginHandler = () => {
+    this.setState({
+      authenticated: true
+    });
+  }
+
   render() {
     console.log('[App.js] Inside render')
 
@@ -149,11 +169,12 @@ class App extends PureComponent {
         {/* Just a dummy button to show PureComponents */}
         <button onClick={() => {this.setState({showPersons: true})}}>Show Persons</button>
         <Cockpit 
+          login={this.loginHandler}
           persons={this.state.persons}
           style={style}
           toggled={this.togglePersonsHandler}
         />
-        {persons}
+        <AuthContext.Provider value={this.state.authenticated}>{persons}</AuthContext.Provider>
       </div>
     );
   }
